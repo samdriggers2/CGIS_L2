@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/parcels_final_2020_02_17_2.js"></script>
+        <script src="data/Final_Streetsmerged_streets_3.js"></script>
+        <script src="data/building_final_2020_02_17_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[33.94654404460036,-83.38459402754208],[33.95626377059072,-83.36744817426865]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        var layer_Mapbox_1960_Athens_image_1 = L.tileLayer('https://api.mapbox.com/styles/v1/samtdriggers/ck7dpoghs1c581jmlk0kbwax3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FtdGRyaWdnZXJzIiwiYSI6ImNrN2Rwam9maTAwa3Aza29iNmF4ajFsMjYifQ.YPCsJW08z13tG8PlO637JQ', {
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_Mapbox_1960_Athens_image_1;
+        map.addLayer(layer_Mapbox_1960_Athens_image_1);
+        function pop_parcels_final_2020_02_17_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Parcel Number: </th>\
+                        <td>' + (feature.properties['parcel_num'] !== null ? Autolinker.link(feature.properties['parcel_num'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Parcel Section: </th>\
+                        <td>' + (feature.properties['parcel_sec'] !== null ? Autolinker.link(feature.properties['parcel_sec'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Residents: </th>\
+                        <td>' + (feature.properties['residents'] !== null ? Autolinker.link(feature.properties['residents'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_parcels_final_2020_02_17_2_0() {
+            return {
+                pane: 'pane_parcels_final_2020_02_17_2',
+                opacity: 1,
+                color: 'rgba(128,14,16,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,55,57,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_parcels_final_2020_02_17_2');
+        map.getPane('pane_parcels_final_2020_02_17_2').style.zIndex = 402;
+        map.getPane('pane_parcels_final_2020_02_17_2').style['mix-blend-mode'] = 'normal';
+        var layer_parcels_final_2020_02_17_2 = new L.geoJson(json_parcels_final_2020_02_17_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_parcels_final_2020_02_17_2',
+            layerName: 'layer_parcels_final_2020_02_17_2',
+            pane: 'pane_parcels_final_2020_02_17_2',
+            onEachFeature: pop_parcels_final_2020_02_17_2,
+            style: style_parcels_final_2020_02_17_2_0,
+        });
+        bounds_group.addLayer(layer_parcels_final_2020_02_17_2);
+        map.addLayer(layer_parcels_final_2020_02_17_2);
+        function pop_Final_Streetsmerged_streets_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Street Name'] !== null ? Autolinker.link(feature.properties['Street Name'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Source'] !== null ? Autolinker.link(feature.properties['Source'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['layer'] !== null ? Autolinker.link(feature.properties['layer'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['path'] !== null ? Autolinker.link(feature.properties['path'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Final_Streetsmerged_streets_3_0() {
+            return {
+                pane: 'pane_Final_Streetsmerged_streets_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Final_Streetsmerged_streets_3');
+        map.getPane('pane_Final_Streetsmerged_streets_3').style.zIndex = 403;
+        map.getPane('pane_Final_Streetsmerged_streets_3').style['mix-blend-mode'] = 'normal';
+        var layer_Final_Streetsmerged_streets_3 = new L.geoJson(json_Final_Streetsmerged_streets_3, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Final_Streetsmerged_streets_3',
+            layerName: 'layer_Final_Streetsmerged_streets_3',
+            pane: 'pane_Final_Streetsmerged_streets_3',
+            onEachFeature: pop_Final_Streetsmerged_streets_3,
+            style: style_Final_Streetsmerged_streets_3_0,
+        });
+        bounds_group.addLayer(layer_Final_Streetsmerged_streets_3);
+        map.addLayer(layer_Final_Streetsmerged_streets_3);
+        function pop_building_final_2020_02_17_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? Autolinker.link(feature.properties['fid'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_num'] !== null ? Autolinker.link(feature.properties['parcel_num'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_sec'] !== null ? Autolinker.link(feature.properties['parcel_sec'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_id'] !== null ? Autolinker.link(feature.properties['parcel_id'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bldg_num'] !== null ? Autolinker.link(feature.properties['bldg_num'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['owner'] !== null ? Autolinker.link(feature.properties['owner'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['race'] !== null ? Autolinker.link(feature.properties['race'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['status'] !== null ? Autolinker.link(feature.properties['status'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_acquired'] !== null ? Autolinker.link(feature.properties['date_acquired'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_moved'] !== null ? Autolinker.link(feature.properties['date_moved'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parc_date'] !== null ? Autolinker.link(feature.properties['parc_date'].toLocaleString(), {truncate: {length: 30, location: 'smart'}}) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_building_final_2020_02_17_4_0() {
+            return {
+                pane: 'pane_building_final_2020_02_17_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(149,149,149,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_building_final_2020_02_17_4');
+        map.getPane('pane_building_final_2020_02_17_4').style.zIndex = 404;
+        map.getPane('pane_building_final_2020_02_17_4').style['mix-blend-mode'] = 'normal';
+        var layer_building_final_2020_02_17_4 = new L.geoJson(json_building_final_2020_02_17_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_building_final_2020_02_17_4',
+            layerName: 'layer_building_final_2020_02_17_4',
+            pane: 'pane_building_final_2020_02_17_4',
+            onEachFeature: pop_building_final_2020_02_17_4,
+            style: style_building_final_2020_02_17_4_0,
+        });
+        bounds_group.addLayer(layer_building_final_2020_02_17_4);
+        map.addLayer(layer_building_final_2020_02_17_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/building_final_2020_02_17_4.png" /> building_final_2020_02_17': layer_building_final_2020_02_17_4,'<img src="legend/Final_Streetsmerged_streets_3.png" /> Final_Streets merged_streets': layer_Final_Streetsmerged_streets_3,'<img src="legend/parcels_final_2020_02_17_2.png" /> parcels_final_2020_02_17': layer_parcels_final_2020_02_17_2,"Mapbox_1960_Athens_image": layer_Mapbox_1960_Athens_image_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
